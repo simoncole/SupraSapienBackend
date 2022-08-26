@@ -3,38 +3,19 @@ import express, { Express, Request, Response } from 'express';
 
 const app: Express = express();
 
-const mysql = require('mysql');
-const util = require('util');
-const connection = mysql.createConnection({
-    host: process.env.SQLHOST,
-    user: process.env.SQLUSER,
-    password: process.env.SQLPASSWORD,
-    database: process.env.SQLDATABASE
-})
-connection.query = util.promisify(connection.query).bind(connection);
-connection.connect();
+const mysql = require('mysql2');
+const connection = mysql.createConnection(process.env.DATABASE_URL);
 
+connection.connect();
+// const util = require('util');
 const port = 4000;
 
-app.get('/', (req, res) => {
-    connection.query("SELECT * FROM protocols", (err: any, results: any, fields: any) => {
-        if (err){
-            console.error("there was error: ", err);
-            res.status(500).json();
-        }
-        console.log(results);
-        console.log(fields);
-        res.status(200).json({"data": results});
+app.get("/", (req, res) => {
+    connection.query('SELECT * FROM users', (err: any, rows: any, fields: any) => {
+        if(err) throw err;
+        
+        res.send(rows);
     })
-    // res.send("SUPRASAPIEN!!!!!");
-})
-
-app.get('/protocols/:protocolId', async (req, res) => {
-    const protocolId = req.params.protocolId;
-    // connection.query("SELECT * FROM protocols WHERE protocolId=?", [protocolId]);
-    const protocolData = await connection.query("SELECT * FROM protocols WHERE protocolId=?", [protocolId]);
-    
-    res.status(200).json({"data": protocolData});
 })
 
 app.listen(port, () => {
