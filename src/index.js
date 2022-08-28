@@ -8,11 +8,11 @@ const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const mysql = require('mysql2');
 const connection = mysql.createConnection(process.env.DATABASE_URL);
-connection.connect();
+// connection.connect();
 // const util = require('util');
 const port = 4000;
-app.get("/", (req, res) => {
-    connection.query('SELECT * FROM users', (err, rows, fields) => {
+app.get("/profile/:user", (req, res) => {
+    connection.query('SELECT * FROM users WHERE username=?', [req.params.user], (err, rows, fields) => {
         if (err)
             throw err;
         res.send(rows);
