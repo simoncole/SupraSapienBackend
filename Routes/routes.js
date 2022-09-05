@@ -7,4 +7,6 @@ const test = require('../Controllers/test');
 exports.router.get('/', test.test);
 const getUserProtocols = require("../Controllers/getUserProtocols");
 exports.router.get('/getUserProtocols/:username', getUserProtocols.getUserProtocols);
+const getUserActiveProtocols = require("../Controllers/getUserActiveProtocols");
+exports.router.get('/getUserActiveProtocols/:username', getUserActiveProtocols.getUserActiveProtocols);
 module.exports = exports.router;

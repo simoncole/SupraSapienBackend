@@ -7,4 +7,7 @@ router.get('/', test.test);
 const getUserProtocols = require("../Controllers/getUserProtocols");
 router.get('/getUserProtocols/:username', getUserProtocols.getUserProtocols);
 
+const getUserActiveProtocols = require("../Controllers/getUserActiveProtocols");
+router.get('/getUserActiveProtocols/:username', getUserActiveProtocols.getUserActiveProtocols);
+
 module.exports = router;

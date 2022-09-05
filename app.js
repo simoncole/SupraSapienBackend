@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 app.use('/', require('./Routes/routes'));
 app.use('/getUserProtocols/:username', require('./Routes/routes'));
+app.use('/getUserActiveProtocols/:username', require('./Routes/routes'));
 // const util = require('util');
 const port = 4000;
 app.listen(port, () => {

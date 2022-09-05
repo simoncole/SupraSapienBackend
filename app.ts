@@ -5,6 +5,7 @@ const app: Express = express();
 
 app.use('/', require('./Routes/routes'));
 app.use('/getUserProtocols/:username', require('./Routes/routes'));
+app.use('/getUserActiveProtocols/:username', require('./Routes/routes'));
 
 // const util = require('util');
 
